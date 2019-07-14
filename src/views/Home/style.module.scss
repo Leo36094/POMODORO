@@ -2,6 +2,7 @@ $types: (
   default: (
     filled-left-color: $color-primary-light,
     filled-right-color: $color-primary-darkest,
+    text-color: $color-primary,
     body-background:
       linear-gradient(
         90deg,
@@ -12,6 +13,7 @@ $types: (
   primary: (
     filled-left-color: $color-primary-dark,
     filled-right-color: $color-primary-darkest,
+    text-color: $color-primary-darker,
     body-background:
       linear-gradient(
         90deg,
@@ -42,6 +44,9 @@ $types: (
       .home-right {
         background-color: map-get($styles, filled-right-color);
       }
+      .home-list__text {
+        color: map-get($styles, text-color )
+      }
     }
   }
   &-left {
@@ -69,7 +74,6 @@ $types: (
 
     &__text {
       text-align: right;
-      color: $color-primary;
       cursor: pointer;
       transition: opacity 0.3s linear;
       &:hover {

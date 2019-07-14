@@ -25,7 +25,7 @@ export const defaultProps = {
 const Home = props => {
   const { className } = props;
 
-  let initialSeconds = useRef(5);
+  let initialSeconds = useRef(100);
 
   const initialTodoList = [
     { task: 'FIRST THING TO DO TODAY', id: 1 },
