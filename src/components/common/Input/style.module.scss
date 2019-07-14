@@ -1,0 +1,58 @@
+$sizes: (
+  regular: (
+    input-padding: 18px 16px,
+    input-font-size: $font-size-md
+  ),
+  small: (
+    input-padding: 10px,
+    input-font-size: $font-size-sm
+  )
+);
+
+$types: (
+  default: (
+    text-color: $color-primary
+  ),
+  primary: (
+    text-color: $color-primary-darker
+  )
+);
+
+.input-container {
+  position: relative;
+  @each $type, $styles in $types {
+    &[data-input-type='#{$type}'] {
+      .input::placeholder,
+      .input__suffix {
+        color: map-get($styles, text-color);
+      }
+    }
+  }
+}
+
+.input {
+  width: 100%;
+  outline: none;
+  font-family: $font-family;
+  color: $color-primary;
+  position: relative;
+  border: none;
+  @each $size, $styles in $sizes {
+    &[data-input-size='#{$size}'] {
+      padding: map-get($styles, input-padding);
+      font-size: map-get($styles, input-font-size);
+    }
+  }
+
+  &::placeholder {
+    font-style: italic;
+    font-weight: bold;
+  }
+  &__suffix {
+    position: absolute;
+    top: 50%;
+    right: 3%;
+    transform: translate(0%, -50%);
+    cursor: pointer;
+  }
+}

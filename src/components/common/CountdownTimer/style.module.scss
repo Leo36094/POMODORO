@@ -1,0 +1,23 @@
+$types: (
+  default: (
+    text-color: $color-primary
+  ),
+  primary: (
+    text-color: $color-primary-darker,
+  )
+);
+
+.countdown-timer {
+  @each $type, $styles in $types {
+    &[data-countdown-type='#{$type}'] {
+      color: map-get($styles, text-color )
+    }
+  }
+  width: 454px;
+  padding: 5% 0%;
+  &__display {
+    font-size: 176px;
+    display: flex;
+    align-items: center;
+  }
+}

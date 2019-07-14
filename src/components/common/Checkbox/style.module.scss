@@ -1,0 +1,104 @@
+$sizes: (
+  large: (
+    checkbox-width: 48px,
+    checkbox-height: 48px
+  ),
+  regular: (
+    checkbox-width: 24px,
+    checkbox-height: 24px
+  )
+);
+
+$checkmark: (
+  large: (
+    width-before: 25px,
+    height-before: 2px,
+    position-top-before: 45%,
+    position-left-before: 34.5%,
+    width-after: 15px,
+    height-after: 2px,
+    position-top-after: 55%,
+    position-left-after: 13%
+  ),
+  regular: (
+    checkmark-width: 5px,
+    checkmark-height: 10px,
+    checkmark-position-top: 45%,
+    checkmark-position-left: 34.5%
+  )
+);
+
+.checkbox-container {
+  position: relative;
+  display: block;
+  cursor: pointer;
+  font-size: $font-size-md;
+  user-select: none;
+  @each $size, $styles in $sizes {
+    &[data-checkbox-size='#{$size}'] {
+      width: map-get($styles, checkbox-width);
+      height: map-get($styles, checkbox-height);
+    }
+  }
+}
+.checkbox {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+  &[data-checkbox-type='radio'] {
+    border-radius: 50%;
+  }
+  &-checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: transparent;
+    border: 2px solid $color-primary-darkest;
+    &[data-checkbox-type='radio'] {
+      border-radius: 50%;
+    }
+    @each $size, $styles in $sizes {
+      &[data-checkbox-size='#{$size}'] {
+        width: map-get($styles, checkbox-width);
+        height: map-get($styles, checkbox-height);
+      }
+    }
+    &:after,
+    &:before {
+      content: '';
+      position: absolute;
+      display: none;
+      opacity: 0;
+    }
+  }
+}
+
+@each $type, $styles in $checkmark {
+  &[data-checkbox-size='#{$type}'] {
+    input:checked {
+      ~ .checkbox-checkmark:after,
+      ~ .checkbox-checkmark:before {
+        display: block;
+        background-color: $color-primary-darkest;
+        opacity: 1;
+      }
+      ~ .checkbox-checkmark:after {
+        transform: rotate(45deg);
+        width: map-get($styles, width-after);
+        height: map-get($styles, height-after);
+        top: map-get($styles, position-top-after);
+        left: map-get($styles, position-left-after);
+      }
+      ~ .checkbox-checkmark:before {
+        transform: rotate(135deg);
+        width: map-get($styles, width-before);
+        height: map-get($styles, height-before);
+        top: map-get($styles, position-top-before);
+        left: map-get($styles, position-left-before);
+      }
+    }
+  }
+}
+

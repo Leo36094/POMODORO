@@ -1,0 +1,107 @@
+$types: (
+  default: (
+    icon-color: $color-primary-dark,
+    animation-color: $color-primary,
+  ),
+  primary: (
+    icon-color: $color-primary-darker,
+    animation-color: $color-primary-darker,
+  )
+);
+
+@each $type, $styles in $types {
+  &[data-timer-type='#{$type}'] {
+    &.timer-svg {
+      border: 4px solid map-get($styles, animation-color);
+    }
+  }
+}
+
+.timer-svg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 540px;
+  height: 540px;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50;
+  transform: translate(-50%, -50%) rotate(270deg);
+  @each $type, $styles in $types {
+    &[data-timer-type='#{$type}'] {
+      .timer-svg__animation {
+        &.active {
+          stroke: map-get($styles , animation-color );
+        }
+      }
+      .timer-svg__inner {
+        border: 4px solid map-get($styles, animation-color);
+        background-color: map-get($styles, animation-color );
+      }
+      &[data-is-playing='true'] {
+        border: 4px solid map-get($styles, animation-color);
+        .timer-svg__inner {
+          background-color: #fff;
+        }
+        .play-icon {
+          color: map-get($styles, animation-color);
+        }
+        .timer-svg__reset {
+          background-color: map-get($styles, animation-color);
+        }
+
+      }
+
+    }
+  }
+  &__inner {
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    transition: all 0.4s linear;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  &__reset {
+    position: absolute;
+    top: 58%;
+    left: 40%;
+    width: 14px;
+    height: 14px;
+    background-color: #fff;
+    cursor: pointer;
+  }
+  .play-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 96px;
+    height: 96px;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    cursor: pointer;
+    i {
+      width: 96px;
+      height: 96px;
+      font-size: 96px;
+      transform: rotate(90deg);
+    }
+  }
+  &__animation {
+
+    stroke-width: 21;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    circle {
+      stroke-dasharray: 360%;
+      stroke-dashoffset: 57%;
+      transition: all .5s linear;
+      fill: none;
+    }
+  }
+}
+

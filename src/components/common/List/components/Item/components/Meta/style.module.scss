@@ -1,0 +1,22 @@
+$margin-horizontal: 16px;
+
+.list-item-meta {
+  width: 100%;
+  display: flex;
+  // align-items: flex-x;
+  justify-items: center;
+  flex-direction: column;
+
+  &:not(:only-child) {
+    margin-left: $margin-horizontal;
+    margin-right: $margin-horizontal;
+  }
+
+  &:first-child {
+    margin-left: 0;
+  }
+
+  &:last-child {
+    margin-right: 0;
+  }
+}

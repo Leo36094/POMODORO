@@ -1,0 +1,85 @@
+$types: (
+  default: (
+    filled-left-color: $color-primary-light,
+    filled-right-color: $color-primary-darkest,
+    body-background:
+      linear-gradient(
+        90deg,
+        $color-primary-light 29%,
+        $color-primary-darkest 73%
+      )
+  ),
+  primary: (
+    filled-left-color: $color-primary-dark,
+    filled-right-color: $color-primary-darkest,
+    body-background:
+      linear-gradient(
+        90deg,
+        $color-primary-dark 29%,
+        $color-primary-darkest 73%
+      )
+  )
+);
+@each $type, $styles in $types {
+  body {
+    &[data-home-type='#{$type}'] {
+      background: map-get($styles, body-background);
+    }
+  }
+}
+
+.home {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  position: relative;
+
+  @each $type, $styles in $types {
+    &[data-home-type='#{$type}'] {
+      .home-left {
+        background-color: map-get($styles, filled-left-color);
+      }
+      .home-right {
+        background-color: map-get($styles, filled-right-color);
+      }
+    }
+  }
+  &-left {
+    width: calc(100% - 450px);
+    box-sizing: border-box;
+    padding: 48px 85px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+  }
+  &-dot {
+    font-size: 14px;
+    color: $color-primary-darkest;
+  }
+  &-input {
+    width: 445px;
+  }
+  &-list {
+    width: 445px;
+    min-height: 160px;
+    &-container {
+      max-height: 145px;
+      overflow: hidden;
+    }
+
+    &__text {
+      text-align: right;
+      color: $color-primary;
+      cursor: pointer;
+      transition: opacity 0.3s linear;
+      &:hover {
+        opacity: 0.5;
+      }
+    }
+  }
+  &-right {
+    position: relative;
+    width: 450px;
+    height: 100%;
+  }
+}

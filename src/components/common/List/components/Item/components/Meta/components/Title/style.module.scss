@@ -1,0 +1,13 @@
+$margin-bottom: 6px;
+
+$color: inherit;
+$font-size: $font-size-sm;
+$font-weight: 400;
+
+.list-item-meta-title {
+  margin: 0 0 $margin-bottom 0;
+  color: $color;
+  line-height: 1;
+  font-size: $font-size;
+  font-weight: $font-weight;
+}
