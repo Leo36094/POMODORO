@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "a80974f9f7cf5d64c5b5011ae9950308",
+    "revision": "5806e0f1257b643406b2d66fe9467f79",
     "url": "/POMODORO/index.html"
   },
   {
@@ -8,16 +8,16 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/POMODORO/static/css/2.c59c7fe7.chunk.css"
   },
   {
-    "revision": "8ecb5aa8cd10cb5f0f96",
-    "url": "/POMODORO/static/css/main.9eb039c1.chunk.css"
+    "revision": "cabc9cfa7d83a2df93dd",
+    "url": "/POMODORO/static/css/main.dc38d6e4.chunk.css"
   },
   {
     "revision": "fa1b358cda1d49decc93",
     "url": "/POMODORO/static/js/2.314145ec.chunk.js"
   },
   {
-    "revision": "8ecb5aa8cd10cb5f0f96",
-    "url": "/POMODORO/static/js/main.1b34c48d.chunk.js"
+    "revision": "cabc9cfa7d83a2df93dd",
+    "url": "/POMODORO/static/js/main.b561d1ac.chunk.js"
   },
   {
     "revision": "53e407f664cbfc0df8da",
