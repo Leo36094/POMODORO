@@ -1,12 +1,10 @@
-import React,{useRef} from 'react';
+import React from 'react';
 import Home from './views/Home';
 import './App.scss';
 
 function App() {
-  const homeRef = useRef(null)
   return (
-    <div className="App" ref={homeRef.current} data-home-type='primary'>
-      {console.log(homeRef.current)}
+    <div className="App"data-home-type='primary'>
       <Home />
     </div>
   );

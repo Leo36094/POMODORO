@@ -9,7 +9,7 @@ import TimerSvg from '../../components/common/TimerSvg';
 import Input from '../../components/common/Input';
 import List from '../../components/common/List';
 import Checkbox from '../../components/common/Checkbox';
-import HomeNav from '../../components/common/HomeNav'
+import HomeNav from '../../components/common/HomeNav';
 
 const cx = classnames.bind(styles);
 
@@ -86,21 +86,33 @@ const Home = props => {
   const resetTimer = () => {
     setSeconds(initialSeconds.current);
     setIsReset(true);
-    setTomatos([])
+    setTomatos([]);
     setIsActive(false);
   };
-
+  const delayRemove = function(s) {
+    return new Promise((resolve, rejcet) => {
+      setIsActive(false);
+      setTimeout(resolve, s);
+    });
+  };
   const handleCheck = () => {
     setCheckStatus(!checkStatus);
-    setFakeList(fakeList.slice(1));
-    setCheckStatus(false);
+    delayRemove(500).then(() => {
+      setFakeList(fakeList.slice(1))
+      setSeconds(initialSeconds.current);
+      setIsReset(true);
+      setCheckStatus(false);
+    });
   };
 
   return (
     <div className={cx('home', className)} data-home-type={homeType}>
       <div className={cx('home-left')}>
         <div className={cx('home-input')}>
-          <Input suffix={<i className="material-icons">add</i>} inputType={homeType} />
+          <Input
+            suffix={<i className="material-icons">add</i>}
+            inputType={homeType}
+          />
         </div>
         <div className={cx('home-list', 'home-timer-display')}>
           <List.Item
@@ -122,7 +134,7 @@ const Home = props => {
                     : 'Congrats! You completed all.'}
                 </span>
               }
-              description={tomatos.map((item,index) => (
+              description={tomatos.map((item, index) => (
                 <i className={cx('material-icons', 'home-dot')} key={index}>
                   fiber_manual_record
                 </i>
@@ -179,7 +191,7 @@ const Home = props => {
           timerType={homeType}
         />
       </div>
-      <HomeNav/>
+      <HomeNav />
     </div>
   );
 };
