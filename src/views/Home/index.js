@@ -25,15 +25,15 @@ export const defaultProps = {
 const Home = props => {
   const { className } = props;
 
-  let initialSeconds = useRef(100);
+  let initialSeconds = useRef(5);
 
   const initialTodoList = [
     { task: 'FIRST THING TO DO TODAY', id: 1 },
     { task: 'Second THING TO DO TODAY', id: 2 },
     { task: 'Third THING TO DO TODAY', id: 3 },
     { task: 'Fourth THING TO DO TODAY', id: 4 },
-    { task: 'Third THING TO DO TODAY', id: 5 },
-    { task: 'Fourth THING TO DO TODAY', id: 6 }
+    { task: 'Fifth THING TO DO TODAY', id: 5 },
+    { task: 'Sixth THING TO DO TODAY', id: 6 }
   ];
   // countdown time / counting by seconds
   const [seconds, setSeconds] = useState(initialSeconds.current);
@@ -42,7 +42,6 @@ const Home = props => {
   const [breakTime, setBreakTime] = useState(true);
   const [isReset, setIsReset] = useState(false);
   const [isActive, setIsActive] = useState(false);
-  const [checkStatus, setCheckStatus] = useState(false);
   const [tomatos, setTomatos] = useState([]);
 
   useEffect(() => {
@@ -95,14 +94,21 @@ const Home = props => {
       setTimeout(resolve, s);
     });
   };
-  const handleCheck = () => {
-    setCheckStatus(!checkStatus);
-    delayRemove(500).then(() => {
-      setFakeList(fakeList.slice(1))
-      setSeconds(initialSeconds.current);
-      setIsReset(true);
-      setCheckStatus(false);
-    });
+  const handleCheck = e => {
+    const completedTaskId = e.target.dataset.checkboxId;
+    let status = e.target.checked;
+    if (status) {
+      delayRemove(500).then(() => {
+        setFakeList(
+          fakeList.filter(item => Number(item.id) !== Number(completedTaskId))
+        );
+        setSeconds(initialSeconds.current);
+        setIsReset(true);
+        setTomatos([])
+        status = false
+      });
+    }
+
   };
 
   return (
@@ -118,8 +124,8 @@ const Home = props => {
           <List.Item
             prefix={
               <Checkbox
-                onClick={handleCheck}
-                checkedStatus={checkStatus}
+                checkboxId={fakeList[0].id}
+                onChange={handleCheck}
                 className={cx('home-timer-checkbox')}
                 size="large"
                 style={{ marginRight: '16px' }}
@@ -156,12 +162,12 @@ const Home = props => {
                   hasBorder
                   key={item.id}
                   prefix={
-                    <i
-                      className="material-icons"
-                      style={{ marginRight: '8px' }}
-                    >
-                      radio_button_unchecked
-                    </i>
+                    <Checkbox
+                      onChange={handleCheck}
+                      checkboxId={item.id}
+                      size="regular"
+                      style={{ marginRight: '6px' }}
+                    />
                   }
                   suffix={
                     <i

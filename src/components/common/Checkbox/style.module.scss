@@ -21,10 +21,14 @@ $checkmark: (
     position-left-after: 13%
   ),
   regular: (
-    checkmark-width: 5px,
-    checkmark-height: 10px,
-    checkmark-position-top: 45%,
-    checkmark-position-left: 34.5%
+    width-before: 10px,
+    height-before: 2px,
+    position-top-before: 45%,
+    position-left-before: 34.5%,
+    width-after: 7px,
+    height-after: 2px,
+    position-top-after: 55%,
+    position-left-after: 13%
   )
 );
 

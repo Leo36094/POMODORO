@@ -10,7 +10,7 @@ export const propTypes = {
   size: PropTypes.string,
   style: PropTypes.object,
   onClick: PropTypes.func,
-  checkedStatus: PropTypes.bool
+  checkboxId: PropTypes.number
 };
 
 export const defaultProps = {
@@ -19,8 +19,9 @@ export const defaultProps = {
   checkedStatus: false
 };
 
+
 const Checkbox = props => {
-  const { type, size, style, onClick, checkedStatus } = props;
+  const { type, size, style, onChange, checkboxId } = props;
   return (
     <label
       className={cx('checkbox-container')}
@@ -30,8 +31,8 @@ const Checkbox = props => {
       <input
         className={cx('checkbox')}
         type="checkbox"
-        checked={checkedStatus}
-        onClick={() => onClick(checkedStatus)}
+        data-checkbox-id={checkboxId}
+        onChange={(e) => onChange(e)}
         readOnly
       />
       <span
