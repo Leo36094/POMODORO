@@ -28,16 +28,14 @@ const Home = props => {
   let initialSeconds = useRef(5);
 
   const initialTodoList = [
-    { task: 'FIRST THING TO DO TODAY', id: 1 },
-    { task: 'Second THING TO DO TODAY', id: 2 },
-    { task: 'Third THING TO DO TODAY', id: 3 },
-    { task: 'Fourth THING TO DO TODAY', id: 4 },
-    { task: 'Fifth THING TO DO TODAY', id: 5 },
-    { task: 'Sixth THING TO DO TODAY', id: 6 }
+    { task: 'FIRST THING TO DO TODAY', id: 1, checked: false },
+    { task: 'Second THING TO DO TODAY', id: 2, checked: false },
+    { task: 'Third THING TO DO TODAY', id: 3, checked: false },
   ];
   // countdown time / counting by seconds
   const [seconds, setSeconds] = useState(initialSeconds.current);
   const [fakeList, setFakeList] = useState(initialTodoList);
+  // const [headerList, setHeaderList] = useState(fakeList.slice(0, 1));
   const [homeType, setHomeType] = useState('default');
   const [breakTime, setBreakTime] = useState(true);
   const [isReset, setIsReset] = useState(false);
@@ -88,27 +86,32 @@ const Home = props => {
     setTomatos([]);
     setIsActive(false);
   };
-  const delayRemove = function(s) {
+  const delayRemove = function(millisecond) {
     return new Promise((resolve, rejcet) => {
       setIsActive(false);
-      setTimeout(resolve, s);
+      setTimeout(resolve, millisecond);
     });
   };
   const handleCheck = e => {
     const completedTaskId = e.target.dataset.checkboxId;
-    let status = e.target.checked;
-    if (status) {
-      delayRemove(500).then(() => {
-        setFakeList(
-          fakeList.filter(item => Number(item.id) !== Number(completedTaskId))
-        );
-        setSeconds(initialSeconds.current);
-        setIsReset(true);
-        setTomatos([])
-        status = false
-      });
-    }
-
+    const updatedList = fakeList.map(item => {
+      if (item.id === completedTaskId) item.checked = true;
+      return item;
+    });
+    setFakeList(updatedList);
+    delayRemove(500).then(() => {
+      setFakeList(
+        fakeList
+          .filter(item => Number(item.id) !== Number(completedTaskId))
+          .map(item => {
+            item.checked = false;
+            return item;
+          })
+      );
+      setSeconds(initialSeconds.current);
+      setIsReset(true);
+      setTomatos([]);
+    });
   };
 
   return (
@@ -122,20 +125,25 @@ const Home = props => {
         </div>
         <div className={cx('home-list', 'home-timer-display')}>
           <List.Item
+            key={fakeList.length > 0 ? fakeList[0].id : Math.random()}
             prefix={
               <Checkbox
-                checkboxId={fakeList[0].id}
+                checkboxId={
+                  fakeList.length > 0 ? fakeList[0].id : Math.random()
+                }
                 onChange={handleCheck}
-                className={cx('home-timer-checkbox')}
+                checkedStatus={fakeList.length > 0 ? fakeList[0].checked : true}
+                className={cx('home-timer-checkbox', {
+                  'home-timer__checkbox--disabled': fakeList.length < 1
+                })}
                 size="large"
                 style={{ marginRight: '16px' }}
               />
-            }
-          >
+            }>
             <List.Item.Meta
               title={
                 <span style={{ fontSize: '24px' }}>
-                  {fakeList.length > 1
+                  {fakeList.length > 0
                     ? fakeList[0].task
                     : 'Congrats! You completed all.'}
                 </span>
@@ -147,6 +155,7 @@ const Home = props => {
               ))}
             />
           </List.Item>
+
           <CountdownTimer
             startTimeInSeconds={seconds}
             toggleTimer={toggleTimer}
@@ -172,18 +181,20 @@ const Home = props => {
                   suffix={
                     <i
                       className={cx('material-icons')}
-                      style={{ width: '24px' }}
-                    >
+                      style={{ width: '24px' }}>
                       play_circle_outline
                     </i>
-                  }
-                >
+                  }>
                   {item.task}
                 </List.Item>
               ))}
             </div>
           </List>
-          <p className={cx('home-list__text')}>More</p>
+          {fakeList.length > 5 ? (
+            <p className={cx('home-list__text')}>More</p>
+          ) : (
+            ''
+          )}
         </div>
       </div>
       <div className={cx('home-right')}>

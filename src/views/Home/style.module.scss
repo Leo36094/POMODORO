@@ -45,7 +45,7 @@ $types: (
         background-color: map-get($styles, filled-right-color);
       }
       .home-list__text {
-        color: map-get($styles, text-color )
+        color: map-get($styles, text-color);
       }
     }
   }
@@ -57,6 +57,9 @@ $types: (
     justify-content: space-between;
     flex-direction: column;
   }
+  &-timer__checkbox--disabled {
+    pointer-events: none;
+  }
   &-dot {
     font-size: 14px;
     color: $color-primary-darkest;
@@ -66,7 +69,10 @@ $types: (
   }
   &-list {
     width: 445px;
-    min-height: 160px;
+    min-height: 215px;
+    &--disabled {
+      pointer-events: none;
+    }
     &-container {
       max-height: 145px;
       overflow: hidden;

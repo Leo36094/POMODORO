@@ -14,7 +14,7 @@ $checkmark: (
     width-before: 25px,
     height-before: 2px,
     position-top-before: 45%,
-    position-left-before: 34.5%,
+    position-left-before: 31.5%,
     width-after: 15px,
     height-after: 2px,
     position-top-after: 55%,
@@ -24,7 +24,7 @@ $checkmark: (
     width-before: 10px,
     height-before: 2px,
     position-top-before: 45%,
-    position-left-before: 34.5%,
+    position-left-before: 34%,
     width-after: 7px,
     height-after: 2px,
     position-top-after: 55%,
@@ -73,8 +73,9 @@ $checkmark: (
     &:before {
       content: '';
       position: absolute;
-      display: none;
+      visibility: hidden;
       opacity: 0;
+      transition: opacity .5s linear;
     }
   }
 }
@@ -84,7 +85,7 @@ $checkmark: (
     input:checked {
       ~ .checkbox-checkmark:after,
       ~ .checkbox-checkmark:before {
-        display: block;
+        visibility: visible;
         background-color: $color-primary-darkest;
         opacity: 1;
       }

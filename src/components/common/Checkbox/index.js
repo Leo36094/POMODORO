@@ -9,6 +9,7 @@ export const propTypes = {
   type: PropTypes.string,
   size: PropTypes.string,
   style: PropTypes.object,
+  className: PropTypes.string,
   onClick: PropTypes.func,
   checkboxId: PropTypes.number
 };
@@ -21,10 +22,10 @@ export const defaultProps = {
 
 
 const Checkbox = props => {
-  const { type, size, style, onChange, checkboxId } = props;
+  const { type, size, style, className, onChange, checkboxId, checkboxStatus } = props;
   return (
     <label
-      className={cx('checkbox-container')}
+      className={cx('checkbox-container', className)}
       data-checkbox-size={size}
       style={style}
     >
@@ -34,6 +35,7 @@ const Checkbox = props => {
         data-checkbox-id={checkboxId}
         onChange={(e) => onChange(e)}
         readOnly
+        checked={checkboxStatus}
       />
       <span
         className={cx('checkbox-checkmark')}
