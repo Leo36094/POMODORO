@@ -37,10 +37,14 @@ $types: (
   color: $color-primary;
   position: relative;
   border: none;
-  @each $size, $styles in $sizes {
-    &[data-input-size='#{$size}'] {
-      padding: map-get($styles, input-padding);
-      font-size: map-get($styles, input-font-size);
+  padding: 20px;
+  font-size: $font-size-sm;
+  @include above-laptop {
+    @each $size, $styles in $sizes {
+      &[data-input-size='#{$size}'] {
+        padding: map-get($styles, input-padding);
+        font-size: map-get($styles, input-font-size);
+      }
     }
   }
 

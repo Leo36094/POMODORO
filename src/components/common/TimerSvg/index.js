@@ -12,7 +12,8 @@ export const propTypes = {
   toggleTimer: PropTypes.func,
   resetTimer: PropTypes.func,
   initialSeconds: PropTypes.number,
-  timerType: PropTypes.string
+  timerType: PropTypes.string,
+  className: PropTypes.string,
 };
 export const defaultProps = {
   isActive: true
@@ -26,13 +27,16 @@ const TimerSVG = props => {
     toggleTimer,
     resetTimer,
     initialSeconds,
-    timerType
+    timerType,
+    className
   } = props;
   const [intervalDegree, setIntervalDegree] = useState(0);
+  const [radius, setRadius] = useState(75)
   const eachDegree = (360 - 57) / Number(initialSeconds);
   useEffect(() => {
     let interval = null;
     // Reset 時 重置 svg
+    if(window.innerWidth > 500) setRadius(260)
     if (isReset) {
       setIntervalDegree(0);
     }
@@ -45,7 +49,7 @@ const TimerSVG = props => {
       }
       interval = setInterval(() => {
         setIntervalDegree(intervalDegree => intervalDegree + eachDegree);
-      }, 1000);
+      }, 10000);
     } else if (!isActive && propSeconds !== 0) {
       clearInterval(interval);
     } else clearInterval(interval);
@@ -56,25 +60,26 @@ const TimerSVG = props => {
     isActive,
     isReset,
     propSeconds,
-    setIntervalDegree
+    setIntervalDegree,
+    radius
   ]);
 
   return (
     <div
-      className={cx('timer-svg')}
+      className={cx('timer-svg', className)}
       data-is-playing={isActive}
       data-timer-type={timerType}
     >
       <div className={cx('timer-svg__inner')}>
         <svg
-          width="540"
-          height="540"
+          // width="540"
+          // height="540"
           className={cx('timer-svg__animation', { active: isActive })}
         >
           <circle
             cx="50%"
             cy="50%"
-            r="260"
+            r={radius}
             style={
               isActive ? { strokeDashoffset: `${57 + intervalDegree}%` } : {}
             }

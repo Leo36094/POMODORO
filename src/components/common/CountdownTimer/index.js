@@ -11,7 +11,7 @@ export const propTypes = {
 }
 
 const CountdownTimer = props => {
-  const { startTimeInSeconds, textType } = props;
+  const { startTimeInSeconds, textType, className } = props;
   const displayminutes = Math.floor(startTimeInSeconds / 60);
   const displaySeconds = Math.floor(startTimeInSeconds % 60);
 
@@ -21,7 +21,7 @@ const CountdownTimer = props => {
   };
 
   return (
-    <div className={cx('countdown-timer')} data-countdown-type={textType}>
+    <div className={cx('countdown-timer', className)} data-countdown-type={textType}>
       <div className={cx('countdown-timer__display')}>
         {formatTime(displayminutes)}:{formatTime(displaySeconds)}
       </div>

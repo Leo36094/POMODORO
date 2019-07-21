@@ -138,6 +138,7 @@ const Home = props => {
   const changeTask = task => {
     const newOrderList = fakeList.filter(list => list.id !== task.id);
     setFakeList([task, ...newOrderList]);
+    resetTimer()
   };
   const addTodo = event => {
     const newTodo = {
@@ -214,7 +215,7 @@ const Home = props => {
               title={
                 // 依據是否為編輯狀態顯示 input 或是 span
                 <span
-                  style={{ fontSize: '24px' }}
+                  className={cx('home-list__title')}
                   onDoubleClick={() => {
                     if (fakeList.length < 1) return;
                     setIsEdit(true);
@@ -250,6 +251,7 @@ const Home = props => {
           </List.Item>
 
           <CountdownTimer
+            className={cx('home-countdown-timer')}
             startTimeInSeconds={seconds}
             toggleTimer={toggleTimer}
             textType={homeType}
@@ -292,6 +294,16 @@ const Home = props => {
             ''
           )}
         </div>
+        <TimerSvg
+          className={cx('home-mobile-timer')}
+          seconds={seconds}
+          initialSeconds={initialSeconds.current}
+          isActive={isActive}
+          isReset={isReset}
+          toggleTimer={toggleTimer}
+          resetTimer={resetTimer}
+          timerType={homeType}
+        />
       </div>
       <div className={cx('home-right')}>
         <TimerSvg
@@ -304,7 +316,7 @@ const Home = props => {
           timerType={homeType}
         />
       </div>
-      <HomeNav navIcons={navIcons} handleNavgiation={handleNavgiation} />
+      <HomeNav className={cx('home-nav')} navIcons={navIcons} handleNavgiation={handleNavgiation} />
     </div>
   );
 };

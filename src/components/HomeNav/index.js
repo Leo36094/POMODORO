@@ -12,9 +12,9 @@ export const propTypes = {
 };
 
 const HomeNav = props => {
-  const { navIcons, handleNavgiation } = props;
+  const { navIcons, handleNavgiation, className } = props;
   return (
-    <div className={cx('home-nav')}>
+    <div className={cx('home-nav', className)}>
       <div className={cx('home-nav__icons')}>
         {navIcons.map((icon, index) => (
           <i

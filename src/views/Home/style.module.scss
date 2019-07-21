@@ -50,22 +50,34 @@ $types: (
     }
   }
   &-left {
-    width: calc(100% - 450px);
+    width: 100%;
     box-sizing: border-box;
-    padding: 48px 85px;
+    padding: 12px 22px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     flex-direction: column;
+    @include above-laptop {
+      align-items: flex-start;
+      width: calc(100% - 450px);
+      padding: 48px 85px;
+    }
   }
   &-timer__checkbox--disabled {
     pointer-events: none;
   }
   &-input {
-    width: 445px;
+    min-width: 320px;
+    @include above-laptop {
+      width: 445px;
+    }
   }
   &-list {
-    width: 445px;
+    width: 320px;
     min-height: 215px;
+    @include above-laptop {
+      width: 445px;
+    }
     &--disabled {
       pointer-events: none;
     }
@@ -85,10 +97,30 @@ $types: (
     &__icon {
       cursor: pointer;
     }
+    &__title {
+      font-size: $font-size-lg;
+      @include above-laptop {
+        font-size: 24px;
+      }
+    }
+  }
+  &-mobile-timer {
+    display: block;
+    @include above-laptop {
+      display: none !important;
+    }
+  }
+  &-countdown-timer {
+    min-width: 320px;
+    max-width: 400px;
   }
   &-right {
-    position: relative;
-    width: 450px;
-    height: 100%;
+    display: none;
+    @include above-laptop {
+      display: block;
+      position: relative;
+      width: 450px;
+      height: 100%;
+    }
   }
 }
