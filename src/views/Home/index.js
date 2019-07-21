@@ -187,7 +187,7 @@ const Home = props => {
               </i>
             }
             inputType={homeType}
-            onKeyUp={event => addTodo(event)}
+            onKeyDown={event => addTodo(event)}
             value={todoValue}
             onChange={event => setTodoValue(event.target.value)}
           />
@@ -231,7 +231,7 @@ const Home = props => {
                       placeholder="編輯待辦事項"
                       value={editValue}
                       onChange={event => setEditValue(event.target.value)}
-                      onKeyUp={editTodo}
+                      onKeyDown={editTodo}
                       inputSize="small"
                       type="text"
                     />

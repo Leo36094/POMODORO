@@ -16,7 +16,7 @@ export const propTypes = {
   inputType: PropTypes.string,
   suffix: PropTypes.node,
   width: PropTypes.string,
-  onKeyUp: PropTypes.func,
+  onKeyDown: PropTypes.func,
   onChange: PropTypes.func,
   value: PropTypes.string
 };
@@ -24,7 +24,7 @@ export const propTypes = {
 export const defaultProps = {
   placeholder: 'ADD A NEW Mission…',
   inputSize: 'regular',
-  onKeyUp: () => ''
+  onKeyDown: () => ''
 };
 
 function Input(props) {
@@ -34,7 +34,7 @@ function Input(props) {
     inputType,
     suffix,
     width,
-    onKeyUp,
+    onKeyDown,
     onChange,
     value,
     ...restProps
@@ -52,7 +52,7 @@ function Input(props) {
         value={value}
         data-input-size={inputSize}
         placeholder={placeholder}
-        onKeyUp={event => onKeyUp(event)}
+        onKeyDown={event => onKeyDown(event)}
         onChange={event => onChange(event)}
         {...restProps}
       />
