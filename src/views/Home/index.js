@@ -4,12 +4,13 @@ import classnames from 'classnames/bind';
 import styles from './style.module.scss';
 
 // components
+import HomeNav from '../../components/HomeNav';
 import CountdownTimer from '../../components/common/CountdownTimer';
 import TimerSvg from '../../components/common/TimerSvg';
 import Input from '../../components/common/Input';
 import List from '../../components/common/List';
 import Checkbox from '../../components/common/Checkbox';
-import HomeNav from '../../components/common/HomeNav';
+import Tomatos from '../../components/common/Tomatos';
 
 const cx = classnames.bind(styles);
 
@@ -24,56 +25,64 @@ export const defaultProps = {
 
 const Home = props => {
   const { className } = props;
-
-  let initialSeconds = useRef(5);
+  let workSeonds = 1500;
+  let breakSeonds = 300;
+  let initialSeconds = useRef(workSeonds);
+  let breakTime = useRef(false);
 
   const initialTodoList = [
     { task: 'FIRST THING TO DO TODAY', id: 1, checked: false },
     { task: 'Second THING TO DO TODAY', id: 2, checked: false },
-    { task: 'Third THING TO DO TODAY', id: 3, checked: false },
+    { task: 'Third THING TO DO TODAY', id: 3, checked: false }
   ];
+
   // countdown time / counting by seconds
   const [seconds, setSeconds] = useState(initialSeconds.current);
   const [fakeList, setFakeList] = useState(initialTodoList);
-  // const [headerList, setHeaderList] = useState(fakeList.slice(0, 1));
+  const [navIcons, setNavIcons] = useState([
+    { type: 'toc', isActive: true },
+    { type: 'insert_chart_outlined', isActive: false },
+    { type: 'library_music', isActive: false }
+    // { type: 'bug_report', isActive: false }
+  ]);
   const [homeType, setHomeType] = useState('default');
-  const [breakTime, setBreakTime] = useState(true);
   const [isReset, setIsReset] = useState(false);
   const [isActive, setIsActive] = useState(false);
-  const [tomatos, setTomatos] = useState([]);
+  const [tomatos, setTomatos] = useState([1]);
 
   useEffect(() => {
     let interval = null;
+    // 區隔休息時間和工作時間
     if (seconds < 1) {
-      setBreakTime(!breakTime);
-      if (breakTime) {
-        initialSeconds.current = 10;
+      breakTime.current = !breakTime.current;
+      if (breakTime.current) {
+        initialSeconds.current = breakSeonds;
         setHomeType('primary');
         setSeconds(initialSeconds.current);
         setTomatos([...tomatos, 1]);
         document.querySelector('body').dataset.homeType = 'primary';
       } else {
-        initialSeconds.current = 5;
+        initialSeconds.current = workSeonds;
         setHomeType('default');
         setSeconds(initialSeconds.current);
         document.querySelector('body').dataset.homeType = 'default';
       }
     }
+    // 啟動時要觸發倒數
     if (isActive) {
       if (seconds < 1) {
         setIsActive(false);
-        // setBreakTime(!breakTime);
         clearInterval(interval);
         return;
       }
       interval = setInterval(() => {
         setSeconds(seconds => seconds - 1);
       }, 1000);
-    } else if (!isActive && seconds !== 0) {
+    } else {
       clearInterval(interval);
     }
     return () => clearInterval(interval);
-  }, [breakTime, isActive, seconds, tomatos]);
+  }, [breakSeonds, isActive, seconds, tomatos, workSeonds]);
 
   const toggleTimer = () => {
     setIsActive(!isActive);
@@ -113,6 +122,18 @@ const Home = props => {
       setTomatos([]);
     });
   };
+  const handleNavgiation = (event, icon) => {
+    const newIconStaus = navIcons.map(item => {
+      item.isActive = false;
+      if (item.type === icon) item.isActive = true;
+      return item;
+    });
+    setNavIcons(newIconStaus);
+  };
+  const changeTask = task => {
+    const newOrderList = fakeList.filter(list => list.id !== task.id);
+    setFakeList([task, ...newOrderList]);
+  };
 
   return (
     <div className={cx('home', className)} data-home-type={homeType}>
@@ -139,7 +160,8 @@ const Home = props => {
                 size="large"
                 style={{ marginRight: '16px' }}
               />
-            }>
+            }
+          >
             <List.Item.Meta
               title={
                 <span style={{ fontSize: '24px' }}>
@@ -148,11 +170,14 @@ const Home = props => {
                     : 'Congrats! You completed all.'}
                 </span>
               }
-              description={tomatos.map((item, index) => (
-                <i className={cx('material-icons', 'home-dot')} key={index}>
-                  fiber_manual_record
-                </i>
-              ))}
+              description={
+                <Tomatos
+                  tomatos={tomatos}
+                  initialSeconds={initialSeconds.current}
+                  isActive={isActive && !breakTime.current}
+                  // breakTime={breakTime.current}
+                />
+              }
             />
           </List.Item>
 
@@ -180,11 +205,14 @@ const Home = props => {
                   }
                   suffix={
                     <i
-                      className={cx('material-icons')}
-                      style={{ width: '24px' }}>
+                      className={cx('material-icons', 'home-list__icon')}
+                      style={{ width: '24px' }}
+                      onClick={() => changeTask(item)}
+                    >
                       play_circle_outline
                     </i>
-                  }>
+                  }
+                >
                   {item.task}
                 </List.Item>
               ))}
@@ -208,7 +236,7 @@ const Home = props => {
           timerType={homeType}
         />
       </div>
-      <HomeNav />
+      <HomeNav navIcons={navIcons} handleNavgiation={handleNavgiation} />
     </div>
   );
 };

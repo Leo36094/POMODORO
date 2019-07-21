@@ -6,8 +6,9 @@ import styles from './style.module.scss';
 const cx = classnames.bind(styles);
 
 export const propTypes = {
-  className: PropTypes.string
-  // homeType: PropTypes.string
+  className: PropTypes.string,
+  navIcons: PropTypes.array,
+  handleNavgiation: PropTypes.func
 };
 
 export const defaultProps = {
@@ -15,12 +16,21 @@ export const defaultProps = {
 };
 
 const HomeNav = props => {
+  const { navIcons, handleNavgiation } = props;
   return (
     <div className={cx('home-nav')}>
       <div className={cx('home-nav__icons')}>
-        <i className={cx("material-icons", 'icon')}>toc</i>
-        <i className={cx("material-icons", 'icon')}>insert_chart_outlined</i>
-        <i className={cx("material-icons", 'icon')}>library_music</i>
+        {navIcons.map((icon, index) => (
+          <i
+            className={cx('material-icons', 'icon', {
+              'icon--active': icon.isActive
+            })}
+            key={index}
+            onClick={e => handleNavgiation(e, icon.type)}
+          >
+            {icon.type}
+          </i>
+        ))}
       </div>
       <span className={cx('home-nav__text')}>POMODORO</span>
     </div>

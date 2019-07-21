@@ -15,6 +15,12 @@
     .icon {
       font-size: 36px;
       cursor: pointer;
+      &--active {
+        color: $color-primary-darker;
+      }
+      &[data-is-active='true'] {
+        color: $color-primary-darker;
+      }
     }
   }
   &__text {

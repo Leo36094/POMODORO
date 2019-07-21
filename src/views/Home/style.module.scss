@@ -60,10 +60,6 @@ $types: (
   &-timer__checkbox--disabled {
     pointer-events: none;
   }
-  &-dot {
-    font-size: 14px;
-    color: $color-primary-darkest;
-  }
   &-input {
     width: 445px;
   }
@@ -85,6 +81,9 @@ $types: (
       &:hover {
         opacity: 0.5;
       }
+    }
+    &__icon {
+      cursor: pointer;
     }
   }
   &-right {

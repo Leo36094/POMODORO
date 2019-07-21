@@ -32,9 +32,11 @@ const TimerSVG = props => {
   const eachDegree = (360 - 57) / Number(initialSeconds);
   useEffect(() => {
     let interval = null;
+    // Reset 時 重置 svg
     if (isReset) {
       setIntervalDegree(0);
     }
+    // 清除 interval 的情境
     if (isActive) {
       if (propSeconds < 1) {
         setIntervalDegree(0);
@@ -76,7 +78,6 @@ const TimerSVG = props => {
             style={
               isActive ? { strokeDashoffset: `${57 + intervalDegree}%` } : {}
             }
-            // style={isActive ? {animationDuration:`${propSeconds}s`}: {}}
           />
         </svg>
         <div className={cx('play-icon')}>

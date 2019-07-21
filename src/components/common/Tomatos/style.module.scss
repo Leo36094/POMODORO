@@ -1,0 +1,32 @@
+.tomatos {
+  display: flex;
+  align-items: center;
+
+  &__outer {
+    border-radius: 50%;
+    border: $color-primary 1px solid;
+    width: 12px;
+    height: 12px;
+    position: relative;
+  }
+  &__animation {
+    position: absolute;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-90deg);
+  }
+  &__in-progress {
+    position: absolute;
+    stroke-width: 12;
+    border-radius: 50%;
+    stroke: $color-primary;
+    fill: transparent;
+    // 38 滿一個圈
+    stroke-dasharray: 0 100;
+  }
+  &__finished {
+    font-size: 18px;
+    color: $color-primary-darkest;
+  }
+}
