@@ -15,25 +15,46 @@ export const propTypes = {
   inputSize: PropTypes.string,
   inputType: PropTypes.string,
   suffix: PropTypes.node,
-  width: PropTypes.string
+  width: PropTypes.string,
+  onKeyUp: PropTypes.func,
+  onChange: PropTypes.func,
+  value: PropTypes.string
 };
 
 export const defaultProps = {
   placeholder: 'ADD A NEW Mission…',
   inputSize: 'regular',
+  onKeyUp: () => ''
 };
 
 function Input(props) {
-  const { placeholder, inputSize, inputType, suffix, width } = props;
+  const {
+    placeholder,
+    inputSize,
+    inputType,
+    suffix,
+    width,
+    onKeyUp,
+    onChange,
+    value,
+    ...restProps
+  } = props;
 
   return (
-    <div className={cx('input-container')} style={{width}} data-input-type={inputType}>
+    <div
+      className={cx('input-container')}
+      style={{ width }}
+      data-input-type={inputType}
+    >
       <input
         className={cx('input')}
         type="text"
+        value={value}
         data-input-size={inputSize}
-
         placeholder={placeholder}
+        onKeyUp={event => onKeyUp(event)}
+        onChange={event => onChange(event)}
+        {...restProps}
       />
       <div className={cx('input__suffix')}>{suffix}</div>
     </div>

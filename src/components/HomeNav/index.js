@@ -11,10 +11,6 @@ export const propTypes = {
   handleNavgiation: PropTypes.func
 };
 
-export const defaultProps = {
-  // homeType: 'default'
-};
-
 const HomeNav = props => {
   const { navIcons, handleNavgiation } = props;
   return (

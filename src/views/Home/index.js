@@ -16,15 +16,12 @@ const cx = classnames.bind(styles);
 
 export const propTypes = {
   className: PropTypes.string
-  // homeType: PropTypes.string
-};
-
-export const defaultProps = {
-  // homeType: 'default'
 };
 
 const Home = props => {
   const { className } = props;
+  const enterCode = 13;
+  const escCode = 27;
   let workSeonds = 1500;
   let breakSeonds = 300;
   let initialSeconds = useRef(workSeonds);
@@ -49,6 +46,9 @@ const Home = props => {
   const [isReset, setIsReset] = useState(false);
   const [isActive, setIsActive] = useState(false);
   const [tomatos, setTomatos] = useState([1]);
+  const [todoValue, setTodoValue] = useState('');
+  const [isEdit, setIsEdit] = useState(false);
+  const [editValue, setEditValue] = useState(fakeList[0].task);
 
   useEffect(() => {
     let interval = null;
@@ -108,15 +108,17 @@ const Home = props => {
       return item;
     });
     setFakeList(updatedList);
+    // 進行完變更 check 狀態後，下方進行動畫將完成事項移除。
     delayRemove(500).then(() => {
-      setFakeList(
-        fakeList
-          .filter(item => Number(item.id) !== Number(completedTaskId))
-          .map(item => {
-            item.checked = false;
-            return item;
-          })
-      );
+      const unfinishedList = fakeList
+        .filter(item => Number(item.id) !== Number(completedTaskId))
+        .map(item => {
+          item.checked = false;
+          return item;
+        });
+      setFakeList(unfinishedList);
+      setEditValue(unfinishedList[0].task);
+      setIsEdit(false);
       setSeconds(initialSeconds.current);
       setIsReset(true);
       setTomatos([]);
@@ -134,14 +136,57 @@ const Home = props => {
     const newOrderList = fakeList.filter(list => list.id !== task.id);
     setFakeList([task, ...newOrderList]);
   };
+  const addTodo = event => {
+    const newTodo = {
+      task: event.target.value,
+      id: Math.random(),
+      checked: false
+    };
+    setTodoValue(event.target.value);
+    if (event.keyCode === enterCode) {
+      setFakeList([...fakeList, newTodo]);
+      setTodoValue('');
+    }
+  };
+  const editTodo = event => {
+    const editItem = {
+      task: event.target.value,
+      id: fakeList[0].id,
+      checked: false
+    };
+    if (event.keyCode === escCode) setIsEdit(false);
+    if (event.keyCode === enterCode) {
+      if (!event.target.value) return;
+      const editedList = fakeList.filter(item => item.id !== editItem.id);
+      setFakeList([editItem, ...editedList]);
+      setIsEdit(false);
+      setEditValue(fakeList[0].task);
+    }
+  };
 
   return (
     <div className={cx('home', className)} data-home-type={homeType}>
       <div className={cx('home-left')}>
         <div className={cx('home-input')}>
           <Input
-            suffix={<i className="material-icons">add</i>}
+            suffix={
+              <i
+                className="material-icons"
+                onClick={() => {
+                  setFakeList([
+                    ...fakeList,
+                    { task: todoValue, id: Math.random(), checked: false }
+                  ]);
+                  setTodoValue('');
+                }}
+              >
+                add
+              </i>
+            }
             inputType={homeType}
+            onKeyUp={event => addTodo(event)}
+            value={todoValue}
+            onChange={event => setTodoValue(event.target.value)}
           />
         </div>
         <div className={cx('home-list', 'home-timer-display')}>
@@ -164,10 +209,30 @@ const Home = props => {
           >
             <List.Item.Meta
               title={
-                <span style={{ fontSize: '24px' }}>
-                  {fakeList.length > 0
-                    ? fakeList[0].task
-                    : 'Congrats! You completed all.'}
+                // 依據是否為編輯狀態顯示 input 或是 span
+                <span
+                  style={{ fontSize: '24px' }}
+                  onDoubleClick={() => {
+                    if (fakeList.length < 1) return;
+                    setIsEdit(true);
+                  }}
+                >
+                  {!isEdit ? (
+                    fakeList.length > 0 ? (
+                      fakeList[0].task
+                    ) : (
+                      'Congrats! You completed all.'
+                    )
+                  ) : (
+                    <Input
+                      placeholder="編輯待辦事項"
+                      value={editValue}
+                      onChange={event => setEditValue(event.target.value)}
+                      onKeyUp={editTodo}
+                      inputSize="small"
+                      type="text"
+                    />
+                  )}
                 </span>
               }
               description={
@@ -242,6 +307,5 @@ const Home = props => {
 };
 
 Home.propTypes = propTypes;
-Home.defaultProps = defaultProps;
 
 export default Home;

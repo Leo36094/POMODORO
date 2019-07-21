@@ -71,7 +71,7 @@ $types: (
     }
     &-container {
       max-height: 145px;
-      overflow: hidden;
+      overflow: auto;
     }
 
     &__text {
