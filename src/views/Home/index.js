@@ -11,6 +11,7 @@ import Input from '../../components/common/Input';
 import List from '../../components/common/List';
 import Checkbox from '../../components/common/Checkbox';
 import Tomatos from '../../components/common/Tomatos';
+import beeperAudio from '../../assets/audio/Beeper_Emergency_Call.mp3'
 
 const cx = classnames.bind(styles);
 
@@ -22,6 +23,7 @@ const Home = props => {
   const { className } = props;
   const enterCode = 13;
   const escCode = 27;
+  const audio = new Audio(beeperAudio);
   let workSeonds = 1500;
   let breakSeonds = 300;
   let initialSeconds = useRef(workSeonds);
@@ -54,6 +56,7 @@ const Home = props => {
     let interval = null;
     // 區隔休息時間和工作時間
     if (seconds < 1) {
+      audio.play();
       breakTime.current = !breakTime.current;
       if (breakTime.current) {
         initialSeconds.current = breakSeonds;
@@ -82,7 +85,7 @@ const Home = props => {
       clearInterval(interval);
     }
     return () => clearInterval(interval);
-  }, [breakSeonds, isActive, seconds, tomatos, workSeonds]);
+  }, [audio, breakSeonds, isActive, seconds, tomatos, workSeonds]);
 
   const toggleTimer = () => {
     setIsActive(!isActive);
