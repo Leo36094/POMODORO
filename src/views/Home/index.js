@@ -113,6 +113,7 @@ const Home = props => {
     setFakeList(updatedList);
     // 進行完變更 check 狀態後，下方進行動畫將完成事項移除。
     delayRemove(500).then(() => {
+      if(fakeList.length <= 1) return
       const unfinishedList = fakeList
         .filter(item => Number(item.id) !== Number(completedTaskId))
         .map(item => {
