@@ -31,12 +31,12 @@ const TimerSVG = props => {
     className
   } = props;
   const [intervalDegree, setIntervalDegree] = useState(0);
-  const [radius, setRadius] = useState(75)
+  const [radius, setRadius] = useState('75')
   const eachDegree = (360 - 57) / Number(initialSeconds);
   useEffect(() => {
     let interval = null;
     // Reset 時 重置 svg
-    if(window.innerWidth > 500) setRadius(260)
+    if(window.innerWidth > 500) setRadius('260')
     if (isReset) {
       setIntervalDegree(0);
     }
@@ -49,7 +49,7 @@ const TimerSVG = props => {
       }
       interval = setInterval(() => {
         setIntervalDegree(intervalDegree => intervalDegree + eachDegree);
-      }, 10000);
+      }, 1000);
     } else if (!isActive && propSeconds !== 0) {
       clearInterval(interval);
     } else clearInterval(interval);

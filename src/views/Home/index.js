@@ -50,7 +50,7 @@ const Home = props => {
   const [tomatos, setTomatos] = useState([1]);
   const [todoValue, setTodoValue] = useState('');
   const [isEdit, setIsEdit] = useState(false);
-  const [editValue, setEditValue] = useState(fakeList[0].task);
+  const [editValue, setEditValue] = useState(fakeList[0].task||'');
 
   useEffect(() => {
     let interval = null;
@@ -113,7 +113,7 @@ const Home = props => {
     setFakeList(updatedList);
     // 進行完變更 check 狀態後，下方進行動畫將完成事項移除。
     delayRemove(500).then(() => {
-      if(fakeList.length <= 1) return
+      // if(fakeList.length <= 1) return
       const unfinishedList = fakeList
         .filter(item => Number(item.id) !== Number(completedTaskId))
         .map(item => {
@@ -121,7 +121,8 @@ const Home = props => {
           return item;
         });
       setFakeList(unfinishedList);
-      setEditValue(unfinishedList[0].task);
+      console.log(unfinishedList)
+      setEditValue(unfinishedList[0].task||'');
       setIsEdit(false);
       setSeconds(initialSeconds.current);
       setIsReset(true);
@@ -165,7 +166,7 @@ const Home = props => {
       const editedList = fakeList.filter(item => item.id !== editItem.id);
       setFakeList([editItem, ...editedList]);
       setIsEdit(false);
-      setEditValue(fakeList[0].task);
+      setEditValue(fakeList[0].task||'');
     }
   };
 
