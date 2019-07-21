@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/POMODORO/static/css/main.5f3ac8e0.chunk.css",
-    "main.js": "/POMODORO/static/js/main.f9e99be7.chunk.js",
-    "main.js.map": "/POMODORO/static/js/main.f9e99be7.chunk.js.map",
+    "main.css": "/POMODORO/static/css/main.87a9f20d.chunk.css",
+    "main.js": "/POMODORO/static/js/main.8d167272.chunk.js",
+    "main.js.map": "/POMODORO/static/js/main.8d167272.chunk.js.map",
     "runtime~main.js": "/POMODORO/static/js/runtime~main.1caec113.js",
     "runtime~main.js.map": "/POMODORO/static/js/runtime~main.1caec113.js.map",
-    "static/css/2.1ca2a1a9.chunk.css": "/POMODORO/static/css/2.1ca2a1a9.chunk.css",
-    "static/js/2.14cc76c2.chunk.js": "/POMODORO/static/js/2.14cc76c2.chunk.js",
-    "static/js/2.14cc76c2.chunk.js.map": "/POMODORO/static/js/2.14cc76c2.chunk.js.map",
+    "static/css/2.c59c7fe7.chunk.css": "/POMODORO/static/css/2.c59c7fe7.chunk.css",
+    "static/js/2.28c7a7a0.chunk.js": "/POMODORO/static/js/2.28c7a7a0.chunk.js",
+    "static/js/2.28c7a7a0.chunk.js.map": "/POMODORO/static/js/2.28c7a7a0.chunk.js.map",
     "index.html": "/POMODORO/index.html",
-    "precache-manifest.17f92d4095cdc3f5a3bab6f7f32f3edc.js": "/POMODORO/precache-manifest.17f92d4095cdc3f5a3bab6f7f32f3edc.js",
+    "precache-manifest.f2205ad6b3fee9ef8a4c2002f1cdaee3.js": "/POMODORO/precache-manifest.f2205ad6b3fee9ef8a4c2002f1cdaee3.js",
     "service-worker.js": "/POMODORO/service-worker.js",
-    "static/css/2.1ca2a1a9.chunk.css.map": "/POMODORO/static/css/2.1ca2a1a9.chunk.css.map",
-    "static/css/main.5f3ac8e0.chunk.css.map": "/POMODORO/static/css/main.5f3ac8e0.chunk.css.map",
+    "static/css/2.c59c7fe7.chunk.css.map": "/POMODORO/static/css/2.c59c7fe7.chunk.css.map",
+    "static/css/main.87a9f20d.chunk.css.map": "/POMODORO/static/css/main.87a9f20d.chunk.css.map",
     "static/media/main.scss": "/POMODORO/static/media/BebasNeue-Thin.8eb07671.woff"
   }
 }
