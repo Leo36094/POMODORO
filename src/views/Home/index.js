@@ -40,8 +40,8 @@ const Home = props => {
   const [fakeList, setFakeList] = useState(initialTodoList);
   const [navIcons, setNavIcons] = useState([
     { type: 'toc', isActive: true },
-    { type: 'insert_chart_outlined', isActive: false },
-    { type: 'library_music', isActive: false }
+    // { type: 'insert_chart_outlined', isActive: false },
+    // { type: 'library_music', isActive: false }
     // { type: 'bug_report', isActive: false }
   ]);
   const [homeType, setHomeType] = useState('default');
